@@ -3,6 +3,10 @@
 var userInput = document.querySelector("#default-search");
 var searchBtn = document.querySelector("#sbtBtn");
 
+function makeRandom(length) {
+  var randomNum = Math.floor(Math.random() * length);
+return randomNum;
+}
 
 function getApi(alcType){
     var drinkApi = "https://api.edamam.com/api/recipes/v2?type=public&q="+ alcType +"&app_id=35d6513c&app_key=1522b093a826cd1756220f536462ec8e&dishType=Drinks"
@@ -14,11 +18,13 @@ function getApi(alcType){
   .then(function (response) {
     return response.json();
   })
+
   .then(function (data) {
-    console.log(data)
+    console.log(data.hits.length);
+    var randomNum = makeRandom(data.hits.length);
     var drink = {
-        recipe: data.hits[0].recipe.ingredientLines,
-        name: data.hits[0].recipe.label
+        recipe: data.hits[randomNum].recipe.ingredientLines,
+        name: data.hits[randomNum].recipe.label
     }
     console.log(drink.recipe);
     console.log(drink.name);
