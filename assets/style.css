@@ -2,7 +2,21 @@ h1 {
     font-family: 'Rubik Gemstones', cursive
 }
 
+h2 {
+    font-family: 'Vollkorn', serif;
+    color: #8080ff;
+    text-shadow: 1px 1px 2px #8080ff;
+}
+
 body {
     font-family: 'Vollkorn', serif;
 }
+
+html { 
+    background: url(./images/goblinmode.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 
