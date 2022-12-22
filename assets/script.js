@@ -1,5 +1,5 @@
-
-
+var drinkNameDisplay = document.getElementById("drinkName");
+var ingredientListDisplay = document.getElementById("ingredientList");
 var userInput = document.querySelector("#default-search");
 var searchBtn = document.querySelector("#sbtBtn");
 
@@ -28,15 +28,24 @@ function getApi(alcType){
     }
     console.log(drink.recipe);
     console.log(drink.name);
+    displayDrink(drink);
   });
+};
 
-}
-
+function displayDrink(drink) {
+  drinkNameDisplay.textContent = "";
+  ingredientListDisplay.textContent = "";
+  drinkNameDisplay.textContent = drink.name;
+  for(var i = 0; i < drink.recipe.length; i++) {
+    var recipeItem = document.createElement("li");
+    recipeItem.textContent = drink.recipe[i];
+    ingredientListDisplay.appendChild(recipeItem);
+  }
+};
 
 searchBtn.addEventListener("click", function(event){
     event.preventDefault();
     var alcType = userInput.value.trim();
     console.log(alcType);
     getApi(alcType);
-})
- 
+});
