@@ -2,6 +2,8 @@ var drinkNameDisplay = document.getElementById("drinkName");
 var ingredientListDisplay = document.getElementById("ingredientList");
 var userInput = document.querySelector("#default-search");
 var searchBtn = document.querySelector("#sbtBtn");
+var searchHistoryArr = [];
+var searchHistory = JSON.parse(localStorage.getItem('searchHistoryArr'));
 
 function makeRandom(length) {
   var randomNum = Math.floor(Math.random() * length);
@@ -20,16 +22,25 @@ function getApi(alcType){
   })
 
   .then(function (data) {
-    console.log(data.hits.length);
     var randomNum = makeRandom(data.hits.length);
     var drink = {
         recipe: data.hits[randomNum].recipe.ingredientLines,
         name: data.hits[randomNum].recipe.label
     }
-    console.log(drink.recipe);
-    console.log(drink.name);
     displayDrink(drink);
+    saveHistory(drink);
   });
+};
+
+function saveHistory(drink) {
+  if(searchHistory === null) {
+    searchHistoryArr = searchHistoryArr.concat(drink.name);
+    localStorage.setItem('searchHistoryArr', JSON.stringify(searchHistoryArr));
+  } else {
+    searchHistoryArr = searchHistory;
+    searchHistoryArr = searchHistoryArr.concat(drink.name);
+    localStorage.setItem('searchHistoryArr', JSON.stringify(searchHistoryArr));
+  };
 };
 
 function displayDrink(drink) {
@@ -46,6 +57,5 @@ function displayDrink(drink) {
 searchBtn.addEventListener("click", function(event){
     event.preventDefault();
     var alcType = userInput.value.trim();
-    console.log(alcType);
     getApi(alcType);
 });
