@@ -3,13 +3,14 @@ h1 {
 }
 
 h2 {
-    font-family: 'Vollkorn', serif;
+    font-family: 'Roboto Slab', serif;
     color: #8080ff;
     text-shadow: 1px 1px 2px #8080ff;
+    
 }
 
 body {
-    font-family: 'Vollkorn', serif;
+    font-family: 'Roboto Slab', serif;
 }
 
 html { 
@@ -25,3 +26,5 @@ html {
     justify-content: space-between;
     padding: 0px 20px;
 }
+
+
