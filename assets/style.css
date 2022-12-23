@@ -27,4 +27,22 @@ html {
     padding: 0px 20px;
 }
 
+#ads {
+padding: 15px;
 
+}
+
+#history {
+    padding: 15px;
+}
+
+.big-Container{
+width:max-content;
+padding: 10px;
+margin:0 auto
+
+}
+
+#ads img{
+    margin: 5px;
+}
