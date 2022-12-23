@@ -4,6 +4,7 @@ var userInput = document.querySelector("#default-search");
 var searchBtn = document.querySelector("#sbtBtn");
 var searchHistoryArr = [];
 var searchHistory = JSON.parse(localStorage.getItem('searchHistoryArr'));
+var historyList = document.querySelector("#historyList");
 
 function makeRandom(length) {
   var randomNum = Math.floor(Math.random() * length);
@@ -23,12 +24,19 @@ function getApi(alcType){
 
   .then(function (data) {
     var randomNum = makeRandom(data.hits.length);
-    var drink = {
-        recipe: data.hits[randomNum].recipe.ingredientLines,
-        name: data.hits[randomNum].recipe.label
-    }
-    displayDrink(drink);
-    saveHistory(drink);
+      if(data.hits.length === 0) {
+        drinkNameDisplay.textContent = "";
+        ingredientListDisplay.textContent = "";
+        drinkNameDisplay.textContent = "No Results Found. Please try another search";
+      } else {
+        var drink = {
+            recipe: data.hits[randomNum].recipe.ingredientLines,
+            name: data.hits[randomNum].recipe.label
+        }
+        displayDrink(drink);
+        saveHistory(drink);
+        addHistory();
+      }
   });
 };
 
@@ -54,8 +62,26 @@ function displayDrink(drink) {
   }
 };
 
+function addHistory() {
+
+  historyList.textContent = "";
+  var lastDrinks = JSON.parse(localStorage.getItem('searchHistoryArr'));
+  if(lastDrinks !== null) {
+    for(i = 0; i < lastDrinks.length; i++) {
+      var historyItem = document.createElement("li");
+      historyItem.textContent = lastDrinks[i];
+      historyList.appendChild(historyItem);
+    }
+  } else {
+    return;
+  }
+};
+
+
 searchBtn.addEventListener("click", function(event){
     event.preventDefault();
     var alcType = userInput.value.trim();
     getApi(alcType);
 });
+
+addHistory();
