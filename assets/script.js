@@ -13,9 +13,9 @@ return randomNum;
 function getApi(alcType){
     var drinkApi = "https://api.edamam.com/api/recipes/v2?type=public&q="+ alcType +"&app_id=35d6513c&app_key=1522b093a826cd1756220f536462ec8e&dishType=Drinks"
     fetch(drinkApi, {
-  method: 'GET', //GET is the default.
-  credentials: 'same-origin', // include, *same-origin, omit
-  redirect: 'follow', // manual, *follow, error
+  method: 'GET',
+  credentials: 'same-origin',
+  redirect: 'follow',
 })
   .then(function (response) {
     return response.json();
